@@ -1,0 +1,57 @@
+<view class="article">
+	<view class="article-search">
+		<van-search
+		 value="{{ value }}"
+		 placeholder="请输入搜索关键词"
+		 bind:search="onSearch"
+		 bind:cancel="onShowOpen"
+		 bind:clear="onCancel"
+		/>
+		<van-button
+		 custom-class="article-search-btn"
+		 type="primary"
+		 color="linear-gradient(to right, #4bb0ff, #6149f6)"
+		 block
+		 bind:click="showPopup"
+		>{{activeId.length > 0 ? '已筛选':'未筛选'}}
+		</van-button>
+		<van-popup
+		 show="{{ show }}"
+		 position="top"
+		 custom-style="height: 180px; overflow: hidden;"
+		 bind:close="onClose"
+		>
+			<van-tree-select
+			 items="{{ items }}"
+			 main-active-index="{{ mainActiveIndex }}"
+			 active-id="{{ activeId }}"
+			 bind:click-nav="onClickNav"
+			 bind:click-item="onClickItem"
+			/>
+		</van-popup>
+	</view>
+	<view class="article-box">
+		<view
+		 class="article-list"
+		 bindtap="toDetail"
+		 data-flag="{{value}}"
+		 wx:for="{{bligList}}"
+		 wx:key="index"
+		 wx:for-index="key"
+		 wx:for-item="value"
+		>
+			<view class="{{value.beauti ? 'article-list-main' : 'article-list-main-noimg'}}">
+				<view class="article-list-title">{{value.title}}</view>
+				<view class="article-list-text">{{value.text}}</view>
+				<view class="article-list-more">
+					<van-tag custom-class="article-tag" plain type="primary">{{value.class}}</van-tag>
+					<text class="article-list-right">
+						阅读 {{value.look}} · 评论 {{value.commentNum}} · {{value.createtime}}
+					</text>
+				</view>
+			</view>
+			<image wx:if="{{value.beauti}}" class="article-list-img" src="{{value.bgurl}}" />
+		</view>
+	</view>
+</view>
+

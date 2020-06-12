@@ -1,0 +1,3 @@
+view, image, navigator {
+  box-sizing: border-box;
+}

@@ -1,0 +1,51 @@
+<!--pages/detail/detail.wxml-->
+<view class="detail" wx:if="{{detail.title}}">
+	<view class="detail-title">
+		{{detail.title}}
+	</view>
+	<view class="detail-more">
+		<view class="detail-more-left">
+			<text class="detail-more-text">阅读 {{detail.look}}</text>
+			<text class="detail-more-dian">·</text>
+			<text class="detail-more-text">评论 {{detail.commentNum}}</text>
+		</view>
+		<view class="detail-more-right">
+			<text class="detail-more-text">{{detail.time}}</text>
+		</view>
+	</view>
+	<view class="detail-content">
+		<towxml nodes="{{detail.content}}" />
+	</view>
+	<view wx:if="{{comments.newFirstData && comments.newFirstData.length > 0}}" class="detail-comments">
+		<view class="comments-num">{{detail.commentNum}}条评论</view>
+		<view class="detail-hasComments" wx:for="{{comments.newFirstData}}" wx:key="index" wx:for-item="value">
+			<image class="comment-img" src="{{value.img}}"></image>
+			<view class="comment-box">
+				<view class="comment-name">{{value.user}}</view>
+				<view class="comment-text">{{value.comments}}</view>
+				<view class="comment-time">{{value.createtime}}</view>
+			</view>
+			<view class="comments-replay-wrap">
+				<view class="comments-replay-box" wx:for="{{comments.dataReplay[value.id]}}" wx:key="index" wx:for-item="replayValue">
+					<image class="comment-img" src="{{replayValue.img}}"></image>
+					<view class="comment-box">
+						<view class="comment-name">{{replayValue.user}}</view>
+						<!-- <view class="comment-text">{{replayValue.comments}}</view> -->
+						<view wx:if="{{replayValue.parent !== value.id && comments.allComments[replayValue.parent]}}">
+							<view>{{replayValue.comments}}</view>
+							<text style="color: blue">回复@{{comments.allComments[replayValue.parent].user}}评论：</text>
+							<view style="padding: 5px 0">{{comments.allComments[replayValue.parent].comments}}</view>
+						</view>
+						<view wx:else class="comment-text">
+							<view>{{replayValue.comments}}</view>
+						</view>
+						<view class="comment-time">{{replayValue.createtime}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view wx:else class="detail-noneComments">
+		暂无评论
+	</view>
+</view>

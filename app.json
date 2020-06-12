@@ -1,0 +1,34 @@
+{
+  "pages":[
+    "pages/article/article",
+    "pages/index/index",
+    "pages/center/center",
+    "pages/detail/detail"
+  ],
+  "window":{
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "PASSERMA",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "./icon/mihome.png",
+      "selectedIconPath": "./icon/mihome_select.png"
+    },{
+      "pagePath": "pages/article/article",
+      "text": "文章",
+      "iconPath": "./icon/zhineng.png",
+      "selectedIconPath": "./icon/zhineng_select.png"
+    },{
+      "pagePath": "pages/center/center",
+      "text": "我的",
+      "iconPath": "./icon/my.png",
+      "selectedIconPath": "./icon/my_select.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

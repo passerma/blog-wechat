@@ -1,0 +1,76 @@
+.home .home-title {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home .home-title .home-title-text {
+  margin-bottom: 4px;
+  font-size: 50rpx;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+.home .home-title .home-title-time {
+  font-size: 24rpx;
+  text-align: left;
+  color: #000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-aiticle {
+  margin-top: 20px;
+}
+
+.home .home-aiticle .home-aiticle-list {
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+  overflow: hidden;
+  margin-top: 10px;
+  position: relative;
+}
+
+.home-article-list-img {
+  width: 192rpx;
+  height: 108rpx;
+  position: absolute;
+  top: 50%;
+  margin-top: -64rpx;
+  right: 10px;
+  border-radius: 5px;
+}
+.home-article-list-box {
+  margin-right: 192rpx;
+  padding-right: 10px;
+}
+.home-article-list-title {
+  padding: 0 10px;
+  padding-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.home-article-list-text {
+  padding: 5px 5px 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-size: 24rpx;
+}
+.home-article-list-more {
+  font-size: 20rpx;
+  padding-left: 10px;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  color: #aa8282;
+}

@@ -1,0 +1,16 @@
+<view class="home">
+	<view class="home-title">
+		<text class="home-title-text">今日：</text>
+		<text class="home-title-time">{{nowDate}}</text>
+	</view>
+	<view class="home-aiticle">
+		<view class="home-aiticle-list" bindtap="toDetail" data-flag="{{value}}" wx:for="{{bligList}}" wx:key="index" wx:for-index="key" wx:for-item="value">
+			<view class="home-article-list-box">
+				<view class="home-article-list-title">{{value.title}}</view>
+				<view class="home-article-list-text">{{value.text}}</view>
+				<view class="home-article-list-more">{{value.class}} · {{value.createtime}}</view>
+			</view>
+			<image class="home-article-list-img" src="{{value.bgurl}}"></image>
+		</view>
+	</view>
+</view>
