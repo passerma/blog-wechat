@@ -13,7 +13,7 @@
 		 color="linear-gradient(to right, #4bb0ff, #6149f6)"
 		 block
 		 bind:click="showPopup"
-		>{{activeId.length > 0 ? '已筛选':'未筛选'}}
+		>{{(activeId.length > 0 || orderData !== '') ? '筛选中':'未筛选'}}
 		</van-button>
 		<van-popup
 		 show="{{ show }}"
@@ -24,10 +24,20 @@
 			<van-tree-select
 			 items="{{ items }}"
 			 main-active-index="{{ mainActiveIndex }}"
-			 active-id="{{ activeId }}"
+			 active-id="{{ showSelect }}"
 			 bind:click-nav="onClickNav"
 			 bind:click-item="onClickItem"
 			/>
+			<view wx:if="{{activeId.length > 0}}" class="article-popup-tap-info">{{activeId.length}}</view>
+			<view wx:if="{{orderData !== ''}}" class="article-popup-tap-dot" />
+			<view wx:if="{{activeId.length > 0 || orderData !== ''}}" class="article-popup-tap-clear">
+				<van-button
+				 type="primary"
+				 plain
+				 bind:click="clearAll"
+				>清空
+				</van-button>
+			</view>
 		</van-popup>
 	</view>
 	<view class="article-box">

@@ -13,7 +13,7 @@
 }
 
 .home .home-title .home-title-time {
-  font-size: 24rpx;
+  font-size: 26rpx;
   text-align: left;
   color: #000;
   overflow: hidden;
@@ -42,10 +42,12 @@
   right: 10px;
   border-radius: 5px;
 }
+
 .home-article-list-box {
   margin-right: 192rpx;
   padding-right: 10px;
 }
+
 .home-article-list-title {
   padding: 0 10px;
   padding-right: 5px;
@@ -67,6 +69,7 @@
   -webkit-box-orient: vertical;
   font-size: 24rpx;
 }
+
 .home-article-list-more {
   font-size: 20rpx;
   padding-left: 10px;

@@ -11,6 +11,7 @@ Page({
     allClass: '',
     mainActiveIndex: 0,
     activeId: [],
+    showSelect: [],
     searchData: '',
     max: 4,
     items: [
@@ -40,10 +41,39 @@ Page({
             id: 4,
           }
         ],
+      }, {
+        // 导航名称
+        text: '排序',
+        // 禁用选项
+        disabled: false,
+        // 该导航下所有的可选项
+        children: [
+          {
+            // 名称
+            text: '阅读多-少',
+            // id，作为匹配选中状态的标识
+            id: 'look desc',
+          },
+          {
+            text: '阅读少-多',
+            id: 'look',
+          },
+          {
+            text: '评论多-少',
+            id: 'commentNum desc',
+          },
+          {
+            text: '评论少-多',
+            id: 'commentNum',
+          }
+        ],
       },
-    ]
+    ],
+    activeOrderId: [],
+    orderData: '',
   },
 
+  //#region 生命周期
   /**
    * 生命周期函数--监听页面加载
    */
@@ -86,19 +116,21 @@ Page({
   onUnload: function () {
 
   },
+  //#endregion
 
+  //#region 页面处理
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    const { searchData, allClass } = this.data;
+    const { searchData, allClass, orderData } = this.data;
     wx.showToast({
       title: '加载中',
       icon: 'loading',
       duration: 10000,
       mask: true
     })
-    this.getBlogList(searchData, allClass, '', () => {
+    this.getBlogList(searchData, allClass, orderData, () => {
       wx.hideNavigationBarLoading();
       wx.stopPullDownRefresh();
       wx.hideToast();
@@ -118,6 +150,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+  //#endregion
 
   //#region 文章
   /**
@@ -126,6 +159,7 @@ Page({
   getBlogList: function (keyword, classAll, order, callBack) {
     let that = this
     let url = `https://www.passerma.com/api/blog/list?keyword=${keyword}&classAll=${classAll}&order=${order}`
+    console.log(url)
     wx.request({
       url,
       method: 'GET',
@@ -166,6 +200,28 @@ Page({
       url,
     })
   },
+
+  /** 
+   * 清空所有
+   */
+  clearAll: function () {
+    const { mainActiveIndex, searchData } = this.data
+    this.setData({
+      orderData: '',
+      activeId: [],
+      allClass: '',
+      showSelect: mainActiveIndex === 0 ? [] : ''
+    })
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 10000,
+      mask: true
+    })
+    this.getBlogList(searchData, '', '', () => {
+      wx.hideToast();
+    })
+  },
   //#endregion
 
   //#region 搜索
@@ -173,7 +229,7 @@ Page({
    * 搜索
    */
   onSearch: function (data) {
-    const { allClass } = this.data;
+    const { allClass, orderData } = this.data;
     wx.showToast({
       title: '加载中',
       icon: 'loading',
@@ -183,7 +239,7 @@ Page({
     this.setData({
       searchData: data.detail
     })
-    this.getBlogList(data.detail, allClass, '', () => {
+    this.getBlogList(data.detail, allClass, orderData, () => {
       wx.hideToast();
     })
   },
@@ -192,7 +248,7 @@ Page({
    * 取消
    */
   onCancel: function () {
-    const { allClass } = this.data;
+    const { allClass, orderData } = this.data;
     wx.showToast({
       title: '加载中',
       icon: 'loading',
@@ -202,7 +258,7 @@ Page({
     this.setData({
       searchData: ''
     })
-    this.getBlogList('', allClass, '', () => {
+    this.getBlogList('', allClass, orderData, () => {
       wx.hideToast();
     })
   },
@@ -220,35 +276,55 @@ Page({
 
   //#region 筛选
   onClickNav({ detail = {} }) {
+    const { activeId, orderData } = this.data
+    let index = detail.index || 0
     this.setData({
       mainActiveIndex: detail.index || 0,
+      showSelect: index === 0 ? activeId : orderData
     });
   },
 
   onClickItem({ detail = {} }) {
-    const { activeId, items, searchData } = this.data;
-    const index = activeId.indexOf(detail.id);
-    if (index > -1) {
-      activeId.splice(index, 1);
+    const { activeId, items, searchData, mainActiveIndex, allClass, orderData } = this.data;
+    if (mainActiveIndex === 0) {
+      const index = activeId.indexOf(detail.id);
+      if (index > -1) {
+        activeId.splice(index, 1);
+      } else {
+        activeId.push(detail.id);
+      }
+      let value = []
+      for (let i = 0; i < activeId.length; i++) {
+        const element = activeId[i];
+        value.push(items[0].children[element - 1].text)
+      }
+      let newAllClass = value.join('_')
+      this.setData({ activeId, allClass: newAllClass, showSelect: activeId });
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading',
+        duration: 10000,
+        mask: true
+      })
+      this.getBlogList(searchData, newAllClass, orderData, () => {
+        wx.hideToast();
+      })
     } else {
-      activeId.push(detail.id);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading',
+        duration: 10000,
+        mask: true
+      })
+      let newOrderData = orderData === detail.id ? '' : detail.id
+      this.getBlogList(searchData, allClass, newOrderData, () => {
+        wx.hideToast();
+      })
+      this.setData({
+        orderData: newOrderData,
+        showSelect: newOrderData
+      })
     }
-    let value = []
-    for (let i = 0; i < activeId.length; i++) {
-      const element = activeId[i];
-      value.push(items[0].children[element - 1].text)
-    }
-    let allClass = value.join('_')
-    this.setData({ activeId, allClass });
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 10000,
-      mask: true
-    })
-    this.getBlogList(searchData, allClass, '', () => {
-      wx.hideToast();
-    })
   },
   //#endregion
 })

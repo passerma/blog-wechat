@@ -23,6 +23,45 @@
   height: 34px;
 }
 
+.article-search .article-popup-tap-dot {
+  width: 8px;
+  min-width: 0;
+  height: 8px;
+  background-color: #ee0a24;
+  border-radius: 50%;
+  position: absolute;
+  top: 54px;
+  left: 49px;
+}
+
+.article-search .article-popup-tap-info {
+  position: absolute;
+  top: 10px;
+  left: 45px;
+  box-sizing: border-box;
+  min-width: 16px;
+  padding: 0 3px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  background-color: #ee0a24;
+  border: 1px solid #fff;
+  border-radius: 16px;
+}
+
+.article-search .article-popup-tap-clear {
+  position: absolute;
+  width: 60px;
+  bottom: 10px;
+  left: 8px;
+}
+
+.article-search .article-popup-tap-clear .van-button {
+  width: 60px;
+}
+
 .article-box {
   margin-top: 60px;
   padding: 0 10px;
@@ -83,6 +122,7 @@
   padding-top: 5px;
   margin-bottom: 5px;
   color: #aa8282;
+  position: relative;
 }
 
 .article-tag {
@@ -91,7 +131,7 @@
 }
 
 .article-list-right {
-  float: right;
-  margin-top: -11px;
-  margin-right: 10px;
+  position: absolute;
+  bottom: 2px;
+  left: 60px;
 }
