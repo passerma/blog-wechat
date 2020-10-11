@@ -69,6 +69,13 @@
   word-wrap: break-word;
   margin-bottom: 5px;
 }
+.comment-text .h2w-light {
+  background: none;
+}
+.comment-text .h2w__main {
+  margin: 0;
+  padding: 0;
+}
 .comment-time {
   font-size: 20rpx;
 }

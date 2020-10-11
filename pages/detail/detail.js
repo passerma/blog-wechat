@@ -1,4 +1,5 @@
 var translate = require('../../utils/util');
+var fetch = require('../../utils/fetch');
 const app = getApp();
 Page({
 
@@ -104,13 +105,8 @@ Page({
    */
   getComments: function (id) {
     let that = this
-    let url = `https://www.passerma.com/api/blog/detail/comments?id=${id}`
-    wx.request({
-      url,
-      success: (res) => {
-        let data = res.data.data
-        that._dealComments(data)
-      }
+    fetch(`blog/detail/comments?id=${id}`, {} , (res) => {
+      that._dealComments(res.data)
     })
   },
   /** 
@@ -130,6 +126,7 @@ Page({
         let img = data[i].img || 'moren'
         data[i].img = `https://www.passerma.com/api/file/get/avatar?avatar=${img}`
         data[i].createtime =  translate.translateDate(data[i].createtime, true),
+        data[i].comments = app.towxml(translate.translateComment(data[i].comments), 'markdown');
         newFirstData.push(data[i])
       } else {
         if (!dataReplay[data[i].touser]) {
@@ -138,6 +135,7 @@ Page({
         let img = data[i].img || 'moren'
         data[i].img = `https://www.passerma.com/api/file/get/avatar?avatar=${img}`
         data[i].createtime =  translate.translateDate(data[i].createtime, true),
+        data[i].comments = translate.translateComment(data[i].comments)
         dataReplay[data[i].touser].unshift(data[i])
       }
     }

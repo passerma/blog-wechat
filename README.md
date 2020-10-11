@@ -1,6 +1,6 @@
-PASSERMA博客小程序源码
+PASSERMA博客微信小程序源码
 ===
-### 小程序版，扫描小程序码
+### 小程序版，扫描小程序码，或者微信搜索 **PASSERMA**
 ![passerma博客小程序版](https://www.passerma.com/down/passerma_wechat.jpg)  
 ===
 ### 小程序持续更新...

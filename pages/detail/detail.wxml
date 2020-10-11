@@ -22,7 +22,9 @@
 			<image class="comment-img" src="{{value.img}}"></image>
 			<view class="comment-box">
 				<view class="comment-name">{{value.user}}</view>
-				<view class="comment-text">{{value.comments}}</view>
+				<view class="comment-text">
+					<towxml nodes="{{value.comments}}" />
+				</view>
 				<view class="comment-time">{{value.createtime}}</view>
 			</view>
 			<view class="comments-replay-wrap">
