@@ -23,9 +23,16 @@
 			<view class="comment-box">
 				<view class="comment-name">{{value.user}}</view>
 				<view class="comment-text">
-					<towxml nodes="{{value.comments}}" />
+					{{value.comments}}
 				</view>
 				<view class="comment-time">{{value.createtime}}</view>
+				<view class="detail-commentsImg-box" wx:if="{{value.commentImg.length > 0}}">
+					<view class="detail-commentsImg" data-src="{{imgUrl}}" data-list="{{value.commentImg}}"
+					wx:for="{{value.commentImg}}" wx:key="index" wx:for-item="imgUrl" 
+					bindtap="preview">
+						<image src="{{imgUrl}}" mode="widthFix"></image>
+					</view>
+				</view>
 			</view>
 			<view class="comments-replay-wrap">
 				<view class="comments-replay-box" wx:for="{{comments.dataReplay[value.id]}}" wx:key="index" wx:for-item="replayValue">
